@@ -34,7 +34,7 @@ if not cc.has_header('bcm_host.h', args: rpi_inc_args)
 endif
 
 mmal_deps = []
-foreach rpi_lib : ['mmal_core', 'mmal_util', 'mmal_vc_client', 'vcos', 'vchostif', 'bcm_host']
+foreach rpi_lib : ['mmal_core', 'mmal_util', 'mmal_vc_client', 'vcos', 'bcm_host']
   l = cc.find_library(rpi_lib, dirs: rpi_lib_path, required: false)
   if not l.found()
     if get_option('rpicamsrc').enabled()
@@ -63,6 +63,8 @@ rpi_warn_flags = cc.get_supported_arguments([
 rpi_link_flags = cc.get_supported_link_arguments(['-Wl,--no-as-needed'])
 
 gnome = import('gnome')
+
+#libvchiq_arm = cc.find_library('vchiq_arm')
 
 enums = gnome.mkenums_simple('gstrpicam-enum-types',
   sources: 'gstrpicam_types.h',
